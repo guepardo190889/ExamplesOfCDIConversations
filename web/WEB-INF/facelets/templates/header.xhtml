@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ice="http://www.icesoft.com/icefaces/component"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:body>
+        <ui:composition>
+            <ice:form>
+                <table width="960px;"> 
+                    <tr>
+                        <td align="left">
+                            <ice:panelGrid>
+                                <ice:commandLink type="submit" >
+                                    <ice:graphicImage styleClass="logoSia" title="Página principal SIA" value="./resources/imagenes/sia.png" alt="logo" />
+                                </ice:commandLink>
+                            </ice:panelGrid>
+
+                        </td>
+                        <td align="center">
+                            <h:dataTable id="table" value="#{conversationsManager.conversationsDataModel}" var="item" border="1" width="40%">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Conversación" />
+                                    </f:facet>
+                                    <h:outputText value="#{item}" />
+                                </h:column>
+                            </h:dataTable> 
+                        </td>
+                        <td align="right" valign="bottom">
+                            <table>                       
+                                <tr>
+                                    <td valign="middle" align="right">
+                                        <ice:panelGrid style="float: right; text-align: right;">
+                                            <ice:commandLink styleClass="fNegrita12" value="Seth Karim Luis Martínez" />
+                                            <ice:outputText styleClass="f9" value="Software Developer" />
+                                            <ice:outputText value="Conversation : #{conversationsManager.currentConversation}" />
+                                        </ice:panelGrid>
+                                    </td>
+                                    <td valign="middle">
+                                        <ice:graphicImage styleClass="dimensionFoto" url="./resources/imagenes/usuarios/b75ckd35th.png"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </ice:form>    
+        </ui:composition>
+    </h:body>
+</html>

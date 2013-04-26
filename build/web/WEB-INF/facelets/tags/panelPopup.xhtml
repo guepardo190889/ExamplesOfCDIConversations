@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:ice="http://www.icesoft.com/icefaces/component"
+                xmlns:f="http://java.sun.com/jsf/core">
+    
+    <ice:panelPopup  style="z-index:1001; position: relative;"
+                     autoCentre="true"
+                     draggable="false"
+                     modal="true"
+                     styleClass="corePopup"
+                     visible="#{mostrarPanel}" rendered="#{mostrarPanel}">
+        <f:facet name="header">
+            <ice:outputText value="#{tituloPanel}" rendered="#{conBoton eq 'false'}"/>
+            <ice:panelGrid width="100%" cellpadding="0" cellspacing="0" columns="2" rendered="#{conBoton eq 'true'}">
+                <ice:outputText value="#{tituloPanel}"/>
+                <ice:commandButton style="float: right" image="./xmlhttp/css/xp/css-images/popupclose.gif" actionListener="#{nombreBean[nombreMetodo]}"/>
+            </ice:panelGrid>
+        </f:facet>
+        <f:facet name="body">
+            <ice:panelGroup>
+                <ui:insert/>
+            </ice:panelGroup>
+        </f:facet>
+    </ice:panelPopup>
+</ui:composition>

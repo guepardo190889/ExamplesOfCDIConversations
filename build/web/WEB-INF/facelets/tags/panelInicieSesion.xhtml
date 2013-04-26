@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+    <ice:panelPopup  style="z-index:1001; width: 350px;"
+                     autoCentre="true"
+                     draggable="false"
+                     modal="true"
+                     styleClass="corePopup"
+                     visible="#{valorVisible}">
+        <f:facet name="header">
+            <ice:panelGroup styleClass="popupHeaderWrapper">
+                <ice:panelGrid columns="2" width="100%">
+                    <ice:outputText styleClass="popupHeaderText" value="#{tituloPopup}"/>
+                </ice:panelGrid>
+            </ice:panelGroup>
+        </f:facet>
+        <f:facet name="body">
+            <ice:panelGroup styleClass="popupBody">
+                  <ice:outputText value="#{mensaje}"/>
+                  <center>
+                         <ice:messages id="errores" globalOnly="true"/>
+                        <ice:panelGrid columns="3">
+                                        <ice:outputLabel for="u" value="#{textoUsuario}"/>
+                                        <ice:inputText id="u" required="true" value="#{valorUsuario}" styleClass="f11"/>
+                                        <ice:message for="u" id="message1" styleClass="error"/>
+                                        <ice:outputLabel for="c" value="#{textoClave}"/>
+                                        <ice:inputSecret id="c" required="true" value="#{valorClave}"
+                                                         action="#{accionClaveBean[accionClave]}"  styleClass="f11"/>
+                                        <ice:message for="c" id="message2" styleClass="error"/>
+                        </ice:panelGrid>   
+                        <ice:commandButton action="#{accionBotonBean[accionBoton]}" value="#{textoBoton}"/>
+                    <ui:insert/>
+                 
+                  </center>
+            </ice:panelGroup>
+        </f:facet>
+    </ice:panelPopup>
+</ui:composition>

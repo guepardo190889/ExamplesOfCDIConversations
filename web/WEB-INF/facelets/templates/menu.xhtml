@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ice="http://www.icesoft.com/icefaces/component">
+    <ui:composition>
+        <ice:form style="80%" styleClass="textoIzquierda">
+            <div id="menu" >
+                <ul class="menu" >
+                    <li>
+                        <ice:commandLink styleClass="parent" title="Principal" action="/index" ><span>Índex</span></ice:commandLink>
+                    </li>
+
+                    <li><ice:commandLink styleClass="parent"><span>A</span></ice:commandLink>
+                        <div>
+                            <ul>
+                                <li><ice:commandLink action="#{beanBackingA.goToPageA()}"><span>Page A</span></ice:commandLink></li>
+                            </ul>
+                        </div>
+                    </li>       
+
+                    <li><ice:commandLink styleClass="parent"><span>B</span></ice:commandLink>
+                        <div>
+                            <ul>                             
+                                <li><ice:commandLink action="#{beanBackingB.goToPageB}"><span>Page B</span></ice:commandLink></li> 
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </ice:form>
+
+    </ui:composition>
+</html>

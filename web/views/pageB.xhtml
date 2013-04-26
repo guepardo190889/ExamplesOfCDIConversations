@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/facelets/templates/template.xhtml">
+
+            <ui:define name="content">
+                <h:messages globalOnly="true" errorStyle="color: red" infoStyle="color: blue"/>
+
+                <ice:form>
+
+                    <ice:outputText value="Catálogo" style="text-align: center; font-size: 14px; font-weight: bold;" />
+
+                    <ice:dataTable id="dgAerolineas"
+                                   value="#{beanBackingA.listDataModel}"
+                                   var="data"
+                                   scrollable="true"
+                                   scrollHeight="350px"
+                                   columnWidths="100px"
+                                   width="10%" >
+                        <ice:column>
+                            <f:facet name="header"><ice:outputText value="Nombre"/></f:facet>
+                            <ice:outputText value="#{data}"/>
+                        </ice:column>                            
+                    </ice:dataTable> 
+
+                    <br />
+                    
+                    <ice:panelGrid columns="2">
+                        <ice:commandLink value="Agregar Item" actionListener="#{beanBackingB.addItem(actionEvent)}" styleClass="link"/>        
+                        <ice:commandLink value="Quitar Item" actionListener="#{beanBackingA.removeItem(actionEvent)}" styleClass="link"/>
+                    </ice:panelGrid>
+
+                </ice:form>  
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

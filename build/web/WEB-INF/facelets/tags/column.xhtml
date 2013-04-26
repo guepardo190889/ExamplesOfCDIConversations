@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:f="http://java.sun.com/jsf/core"
+	            xmlns:ui="http://java.sun.com/jsf/facelets"
+	            xmlns:ice="http://www.icesoft.com/icefaces/component">
+	<ice:column rendered="#{isColumNormal}">
+		<f:facet name="header">
+			<ice:outputText value="#{headerValue}"/>
+		</f:facet>
+		<ice:outputText value="#{itemValue}">
+			<ui:insert/>
+		</ice:outputText>
+	</ice:column>
+	<ice:column rendered="#{isColumSort}">
+		<f:facet name="header">
+			<ice:commandSortHeader arrow="true" columnName="#{columnName}" value="#{headerValue}"/>
+		</f:facet>
+		<ice:outputText value="#{itemValue}">
+			<ui:insert/>
+		</ice:outputText>
+	</ice:column>
+	<ice:column rendered="#{isColumEdit}">
+		<f:facet name="header">
+			<ice:outputText value="#{headerValue}"/>
+		</f:facet>
+		<ice:inputText value="#{itemValue}" required="true">
+			<ui:insert/>
+		</ice:inputText>
+	</ice:column>
+</ui:composition>

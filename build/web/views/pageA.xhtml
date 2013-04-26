@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:ice="http://www.icesoft.com/icefaces/component">
+
+    <body>
+
+        <ui:composition template="./../WEB-INF/facelets/templates/template.xhtml">
+
+            <ui:define name="content">
+
+                <h:messages globalOnly="true" errorStyle="color: red" infoStyle="color: blue"/>
+
+                <ice:form>
+
+                    <ice:outputText value="Catálogo" style="text-align: center; font-size: 14px; font-weight: bold;" />
+
+                    <ice:dataTable id="dgAerolineas"
+                                   value="#{beanBackingA.listDataModel}"
+                                   var="data"
+                                   scrollable="true"
+                                   scrollHeight="350px"
+                                   columnWidths="100px"
+                                   width="10%" >
+                        <ice:column>
+                            <f:facet name="header"><ice:outputText value="Nombre"/></f:facet>
+                            <ice:outputText value="#{data}"/>
+                        </ice:column>                            
+                    </ice:dataTable> 
+
+                    <br />
+                    
+                    <ice:panelGrid columns="2">
+                        <ice:commandLink value="Agregar Item" actionListener="#{beanBackingA.openPopupCreate(actionEvent)}" styleClass="link"/>        
+                        <ice:commandLink value="Quitar Item" actionListener="#{beanBackingA.openPopupEdit(actionEvent)}" styleClass="link"/>
+                    </ice:panelGrid>
+
+                </ice:form>   
+
+                <ice:form>
+                    <ice:panelPopup style="z-index:1001; position: relative;" 
+                                    visible="#{beanBackingA.popupCreate}"
+                                    draggable="false" 
+                                    autoCentre="true"
+                                    modal="true"
+                                    styleClass="corePopup">
+                        <f:facet name="header">
+                            <ice:panelGroup> 
+                                <ice:outputText value="Popup Crear Item"/>
+                            </ice:panelGroup>
+                        </f:facet>
+                        <f:facet name="body">
+                            <ice:panelGroup>
+                                <center><ice:messages errorClass="mensaje" infoClass="mensaje"/></center>  
+
+                                <ice:commandButton value="Agregar Item" actionListener="#{beanBackingA.addItem(actionEvent)}"/>        
+
+                                <center>
+                                    <ice:commandButton value="Cerrar" actionListener="#{beanBackingA.closePopupCreate(actionEvent)}" styleClass="cancelar"/>        
+                                </center>
+                            </ice:panelGroup>
+                        </f:facet>
+                    </ice:panelPopup> 
+                </ice:form>
+
+                <ice:form>
+                    <ice:panelPopup style="z-index:1001; position: relative;" 
+                                    visible="#{beanBackingA.popupEdit}"
+                                    draggable="false" 
+                                    autoCentre="true"
+                                    modal="true"
+                                    styleClass="corePopup">
+                        <f:facet name="header">
+                            <ice:panelGroup> 
+                                <ice:outputText value="Popup Eliminar Item"/>
+                            </ice:panelGroup>
+                        </f:facet>
+                        <f:facet name="body">
+                            <ice:panelGroup>
+                                <center><ice:messages errorClass="mensaje" infoClass="mensaje"/></center>  
+
+                                <ice:commandButton value="Quitar Item" actionListener="#{beanBackingA.removeItem(actionEvent)}"/>
+
+                                <center>
+                                    <ice:commandButton value="Cerrar" actionListener="#{beanBackingA.closePopupEdit(actionEvent)}" styleClass="cancelar"/>        
+                                </center>
+                            </ice:panelGroup>
+                        </f:facet>
+                    </ice:panelPopup> 
+                </ice:form>                
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
