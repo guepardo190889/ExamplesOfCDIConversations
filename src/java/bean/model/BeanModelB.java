@@ -70,7 +70,7 @@ public class BeanModelB implements Serializable {
      * @return the conversation
      */
     public Conversation getConversation() {
-        return conversation;
+        return this.conversation;
     }
 
     /**

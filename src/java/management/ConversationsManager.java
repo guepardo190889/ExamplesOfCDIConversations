@@ -13,6 +13,7 @@ import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.jboss.weld.context.ConversationContext;
+import org.jboss.weld.context.ManagedConversation;
 import org.jboss.weld.context.http.Http;
 
 /**
@@ -53,5 +54,10 @@ public class ConversationsManager implements Serializable {
     
     public String getCurrentConversation() {
         return this.conversationContext.getCurrentConversation().getId();
+    }
+    
+    public DataModel managedConversationsDataModel() {
+        List<ManagedConversation> list = new ArrayList<ManagedConversation>(this.conversationContext.getConversations());
+        return new ListDataModel(list);
     }
 }
