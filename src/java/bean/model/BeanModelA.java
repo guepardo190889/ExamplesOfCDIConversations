@@ -33,8 +33,10 @@ public class BeanModelA implements Serializable {
     private boolean popupEdit;
 
     public void beginConversation() {
+//        this.conversationsManager.endCurrentConversation();
+        
         if (this.getConversation().isTransient()) {
-            this.getConversation().setTimeout(60000); //10 minutos (600000ms) dura la conversación
+            this.getConversation().setTimeout(60000); //1 minuto (60000ms) dura la conversación
             this.getConversation().begin();
             this.conversationsManager.getConversations().add(getConversation().getId());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Conversation was beggined sucessfully"));

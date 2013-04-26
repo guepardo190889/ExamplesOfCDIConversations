@@ -32,6 +32,8 @@ public class BeanModelB implements Serializable {
     private boolean popupEdit;
 
     public void beginConversation() {
+//        this.conversationsManager.endCurrentConversation();
+        
         if (this.getConversation().isTransient()) {
             this.getConversation().begin();
             this.conversationsManager.getConversations().add(getConversation().getId());
