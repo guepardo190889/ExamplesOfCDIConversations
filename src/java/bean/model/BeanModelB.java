@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import management.ConversationsManager;
@@ -41,8 +39,11 @@ public class BeanModelB implements Serializable {
 //            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("The Conversation was can't beggined because not is Transient"));
 //        }
 
+        System.out.println("1.- Contains ConversationBeanModelB: " + this.conversationsManager.conversationContextContainsConversation(this.conversation.getId()));
         this.conversationsManager.endALlConversations();
+        System.out.println("2.- Contains ConversationBeanModelB: " + this.conversationsManager.conversationContextContainsConversation(this.conversation.getId()));
         this.conversationsManager.beginConversation("ConversationBeanModelB");
+        System.out.println("3.- Contains ConversationBeanModelB: " + this.conversationsManager.conversationContextContainsConversation(this.conversation.getId()));
     }
 
 //    public void endConversation() {

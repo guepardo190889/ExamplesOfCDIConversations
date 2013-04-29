@@ -22,10 +22,16 @@
                             <h:dataTable id="table" value="#{conversationsManager.conversationsMapDataModel}" var="item" border="1" width="40%">
                                 <h:column>
                                     <f:facet name="header">
-                                        <h:outputText value="Conversación" />
+                                        <h:outputText value="Name" />
                                     </f:facet>
-                                    <h:outputText value="#{item}" />
+                                    <h:outputText value="#{item.name}" />
                                 </h:column>
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Id" />
+                                    </f:facet>
+                                    <h:outputText value="#{item.id}" />
+                                </h:column>                                
                             </h:dataTable> 
                         </td>
                         <td align="right" valign="bottom">
