@@ -32,26 +32,28 @@ public class BeanModelB implements Serializable {
     private boolean popupEdit;
 
     public void beginConversation() {
-//        this.conversationsManager.endCurrentConversation();
-        
-        if (this.getConversation().isTransient()) {
-            this.getConversation().begin();
-            this.conversationsManager.getConversations().add(getConversation().getId());
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Conversation was beggined sucessfully"));
-        } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("The Conversation was can't beggined because not is Transient"));
-        }
+//        if (this.getConversation().isTransient()) {
+//            this.getConversation().setTimeout(30000); //1 minuto (60000ms) dura la conversación
+//            this.getConversation().begin();
+//            this.conversationsManager.getConversations().add(getConversation().getId());
+//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Conversation was beggined sucessfully"));
+//        } else {
+//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("The Conversation was can't beggined because not is Transient"));
+//        }
+
+        this.conversationsManager.endALlConversations();
+        this.conversationsManager.beginConversation("ConversationBeanModelB");
     }
 
-    public void endConversation() {
-        if (!this.conversation.isTransient()) {
-            this.getConversation().end();
-            this.conversationsManager.getConversations().remove(getConversation().getId());
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Conversation was ended sucessfully"));
-        } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Conversation was can't ended because not is Long Running"));
-        }
-    }
+//    public void endConversation() {
+//        if (!this.conversation.isTransient()) {
+//            this.getConversation().end();
+//            this.conversationsManager.getConversations().remove(getConversation().getId());
+//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Conversation was ended sucessfully"));
+//        } else {
+//            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Conversation was can't ended because not is Long Running"));
+//        }
+//    }
 
     public void loadList() {
         this.list = new ArrayList<String>();

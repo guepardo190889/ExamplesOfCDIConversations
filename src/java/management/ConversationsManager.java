@@ -7,6 +7,7 @@ package management;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
@@ -36,6 +37,7 @@ public class ConversationsManager implements Serializable {
     @Inject
     private Conversation conversation;
     private List<String> conversations = new ArrayList<String>();
+    private TreeMap<String,ConversationAux> conversacionsMap = new TreeMap<String,ConversationAux>();
 
     public ConversationsManager() {
     }
@@ -49,6 +51,11 @@ public class ConversationsManager implements Serializable {
     
     public DataModel getConversationsDataModel() {
         return new ListDataModel(getConversations());
+    }
+    
+    public DataModel getConversationsMapDataModel() {
+        List l = new ArrayList(this.conversacionsMap.values());
+        return new ListDataModel(l);
     }
 
     /**
@@ -67,6 +74,19 @@ public class ConversationsManager implements Serializable {
         return new ListDataModel(list);
     }
     
+    public void killConversation(ActionEvent actionEvent) {
+        String idConversation = (String) getConversationsDataModel().getRowData();
+        System.out.println("idConversation: " + idConversation);
+
+        ManagedConversation managedConversation = this.conversationContext.getConversation(idConversation);
+
+        if (!managedConversation.isTransient()) {
+            managedConversation.end();
+            getConversations().remove(idConversation);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("The las Conversation with id " + idConversation + " was killed sucessfully"));
+        }
+    }
+    
     public void killLastConversation(ActionEvent actionEvent) {
         String idLastConversation = getConversations().get(getConversations().size() - 1);
         System.out.println("idLastConversation: " + idLastConversation);
@@ -75,6 +95,7 @@ public class ConversationsManager implements Serializable {
         
         if(!managedConversation.isTransient()) {
             managedConversation.end();
+            managedConversationsDataModel();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("The las Conversation with id " + managedConversation.getId() + " was killed sucessfully"));
         }
     }
@@ -85,6 +106,42 @@ public class ConversationsManager implements Serializable {
             this.conversation.end();
             this.conversations.remove(id);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("The Conversation with id " + id + " was ended sucessfully"));
+        }
+    }
+    
+    // ----------------------------------------------------------------------------------------------------------------------
+    
+    public void beginConversation(String name) {
+        if (!this.conversation.isTransient()) {
+            this.conversation.setTimeout(600000); //Duración de la conversación - 10 minutos (600000ms)
+            this.conversation.begin();
+            ConversationAux aux = new ConversationAux();
+            aux.setId(this.conversation.getId());
+            aux.setName(name);
+            this.conversacionsMap.put(name, aux);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Conversation was beggined sucessfully"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("The Conversation was can't beggined because not is Transient"));
+        }
+    }
+
+    public void endALlConversations() {
+        List<ConversationAux> values = new ArrayList(this.conversacionsMap.values());
+
+        for (ConversationAux ca : values) {
+            endConversation(ca.getName());
+        }
+    }
+
+    public void endConversation(String name) {
+        ConversationAux aux = this.conversacionsMap.get(name);
+
+        ManagedConversation managedConversation = this.conversationContext.getConversation(aux.getId());
+
+        if (!managedConversation.isTransient()) {
+            managedConversation.end();
+            this.conversacionsMap.remove(name);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("The Conversation with id " + aux.getId() + " was killed sucessfully"));
         }
     }
 }

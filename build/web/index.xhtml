@@ -22,7 +22,7 @@
 
                 Conversaciones:
                 <ice:form>
-                    <h:dataTable id="table" value="#{conversationsManager.conversationsDataModel}" var="item" border="1" width="40%">
+                    <h:dataTable id="table" value="#{conversationsManager.conversationsMapDataModel}" var="item" border="1" width="40%">
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="Conversación" />
@@ -48,14 +48,20 @@
                             </f:facet>
                             <h:outputText value="#{item.id}" />
                         </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Kill" />
+                            </f:facet>
+                            <h:commandButton actionListener="#{conversationsManager.killConversation(actionEvent)}" value="Kill Conversation"/>
+                        </h:column>                        
                     </h:dataTable>
                 </ice:form>    
 
                 <br/><br/>
 
-                <ice:form>
+                <!--<ice:form>
                     <h:commandButton actionListener="#{conversationsManager.killLastConversation(actionEvent)}" value="Kill last Conversation"/>
-                </ice:form>
+                </ice:form>-->
 
             </ui:define>
 
