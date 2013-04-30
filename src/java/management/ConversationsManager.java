@@ -67,6 +67,10 @@ public class ConversationsManager implements Serializable {
         return new ListDataModel(list);
     }
     
+    public void killConversation(ActionEvent actionEvent) {
+        
+    }
+    
     public void killLastConversation(ActionEvent actionEvent) {
         String idLastConversation = getConversations().get(getConversations().size() - 1);
         System.out.println("idLastConversation: " + idLastConversation);

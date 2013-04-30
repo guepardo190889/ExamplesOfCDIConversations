@@ -13,7 +13,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import management.ConversationsManager;
 
 /**
  *
@@ -25,28 +24,27 @@ public class BeanModelB implements Serializable {
 
     @Inject
     private Conversation conversation;
-    @Inject
-    private ConversationsManager conversationsManager;
     private List<String> list;
     private boolean popupCreate;
     private boolean popupEdit;
 
     public void beginConversation() {
-//        this.conversationsManager.endCurrentConversation();
+        System.out.println("BeanModelB.beginConversation()");
+        endConversation();
         
         if (this.getConversation().isTransient()) {
+            this.getConversation().setTimeout(60000); //1 minuto (60000ms) dura la conversación
             this.getConversation().begin();
-            this.conversationsManager.getConversations().add(getConversation().getId());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Conversation was beggined sucessfully"));
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("The Conversation was can't beggined because not is Transient"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Conversation was can't beggined because not is Transient"));
         }
     }
 
     public void endConversation() {
+        System.out.println("BeanModelB.endConversation()");
         if (!this.conversation.isTransient()) {
             this.getConversation().end();
-            this.conversationsManager.getConversations().remove(getConversation().getId());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Conversation was ended sucessfully"));
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Conversation was can't ended because not is Long Running"));

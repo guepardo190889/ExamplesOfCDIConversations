@@ -14,7 +14,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import management.ConversationsManager;
+import org.jboss.weld.context.ConversationContext;
+import org.jboss.weld.context.http.Http;
 
 /**
  *
@@ -24,56 +25,59 @@ import management.ConversationsManager;
 @ConversationScoped
 public class BeanModelA implements Serializable {
 
+    @Http
+    @Inject
+    private ConversationContext conversationContext;
     @Inject
     private Conversation conversation;
-    @Inject
-    private ConversationsManager conversationsManager;
     private List<String> list;
     private boolean popupCreate;
     private boolean popupEdit;
 
     public void beginConversation() {
-//        this.conversationsManager.endCurrentConversation();
-        
-        if (this.getConversation().isTransient()) {
-            this.getConversation().setTimeout(60000); //1 minuto (60000ms) dura la conversación
-            this.getConversation().begin();
-            this.conversationsManager.getConversations().add(getConversation().getId());
+        System.out.println("BeanModelA.beginConversation()");
+//        endConversation();
+        this.conversationContext.deactivate();
+        this.conversationContext.activate();
+
+        if (this.conversation.isTransient()) {
+            this.conversation.setTimeout(60000); //1 minuto (60000ms) dura la conversación
+            this.conversation.begin();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Conversation was beggined sucessfully"));
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("The Conversation was can't beggined because not is Transient"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Conversation was can't beggined because not is Transient"));
         }
     }
 
     public void endConversation() {
+        System.out.println("BeanModelA.endConversation()");
+//        this.conversationContext.deactivate();
         if (!this.conversation.isTransient()) {
-            this.getConversation().end();
-            this.conversationsManager.getConversations().remove(getConversation().getId());
+            this.conversation.end();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Conversation was ended sucessfully"));
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Conversation was can't ended because not is Long Running"));
         }
     }
-    
+
     public void loadList() {
         this.list = new ArrayList<String>();
         for (int i = 1; i <= 10; i++) {
             this.list.add("Item " + i);
         }
     }
-    
+
     public void addItem() {
         this.list.add("Item " + (this.list.size() + 1));
     }
-    
+
     public void removeItem() {
         this.list.remove(this.list.size() - 1);
     }
-    
-   @Remove
-   public void destroy() {
-   
-   }    
+
+    @Remove
+    public void destroy() {
+    }
 
     /**
      * @return the conversation
@@ -121,7 +125,7 @@ public class BeanModelA implements Serializable {
      * @return the list
      */
     public List<String> getList() {
-        if(this.list == null) {
+        if (this.list == null) {
             loadList();
         }
         return list;
