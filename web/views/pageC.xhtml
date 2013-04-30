@@ -15,10 +15,10 @@
 
                 <ice:form>
 
-                    <ice:outputText value="Catálogo - Page B" style="text-align: center; font-size: 14px; font-weight: bold;" />
+                    <ice:outputText value="Catálogo - Page C" style="text-align: center; font-size: 14px; font-weight: bold;" />
 
                     <ice:dataTable id="dgAerolineas"
-                                   value="#{beanBackingB.listDataModel}"
+                                   value="#{beanBackingC.listDataModel}"
                                    var="data"
                                    scrollable="true"
                                    scrollHeight="350px"
@@ -33,8 +33,8 @@
                     <br />
                     
                     <ice:panelGrid columns="2">
-                        <ice:commandLink value="Agregar Item" actionListener="#{beanBackingB.addItem(actionEvent)}" styleClass="link"/>        
-                        <ice:commandLink value="Quitar Item" actionListener="#{beanBackingB.removeItem(actionEvent)}" styleClass="link"/>
+                        <ice:commandLink value="Agregar Item" actionListener="#{beanBackingC.addItem(actionEvent)}" styleClass="link"/>        
+                        <ice:commandLink value="Quitar Item" actionListener="#{beanBackingC.removeItem(actionEvent)}" styleClass="link"/>
                     </ice:panelGrid>
 
                 </ice:form>  

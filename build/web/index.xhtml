@@ -39,6 +39,10 @@
 
                 <br/><br/>
 
+                <ice:form>
+                    <h:commandButton actionListener="#{conversationsManager.addConversation()}" value="Add Conversation to ConversationManager"/>
+                </ice:form>
+
                 <!--Managed Conversations:
                 <ice:form>
                     <h:dataTable id="table" value="#{conversationsManager.managedConversationsDataModel()}" var="item" border="1" width="40%">

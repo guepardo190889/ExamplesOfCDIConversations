@@ -38,6 +38,10 @@ public class ConversationsManager implements Serializable {
     private List<String> conversations = new ArrayList<String>();
 
     public ConversationsManager() {
+        this.conversations = new ArrayList<String>();
+        for (int i = 1; i <= 10; i++) {
+            this.conversations.add("Element " + i);
+        }
     }
 
     /**
@@ -49,6 +53,10 @@ public class ConversationsManager implements Serializable {
     
     public DataModel getConversationsDataModel() {
         return new ListDataModel(getConversations());
+    }
+    
+    public void addConversation() {
+        this.conversations.add("Element " + this.conversations.size());
     }
 
     /**

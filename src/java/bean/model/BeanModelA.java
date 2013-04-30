@@ -30,6 +30,8 @@ public class BeanModelA implements Serializable {
     private ConversationContext conversationContext;
     @Inject
     private Conversation conversation;
+    @Inject
+    private BeanModelB beanModelB;
     private List<String> list;
     private boolean popupCreate;
     private boolean popupEdit;
@@ -37,8 +39,12 @@ public class BeanModelA implements Serializable {
     public void beginConversation() {
         System.out.println("BeanModelA.beginConversation()");
 //        this.conversationContext.invalidate();
-        this.conversationContext.deactivate();
-        this.conversationContext.activate();
+        System.out.println("Antes del deactivate");
+        System.out.println("beanModelA.list.size(): " + (this.beanModelB.getList() != null ? this.beanModelB.getList().size() : null));
+//        this.conversationContext.deactivate();
+//        this.conversationContext.activate();
+        System.out.println("Después del deactivate");
+        System.out.println("beanModelA.list.size(): " + (this.beanModelB.getList() != null ? this.beanModelB.getList().size() : null));
 
         if (this.conversation.isTransient()) {
             this.conversation.setTimeout(60000); //1 minuto (30000ms) dura la conversación
