@@ -36,12 +36,12 @@ public class BeanModelA implements Serializable {
 
     public void beginConversation() {
         System.out.println("BeanModelA.beginConversation()");
-//        endConversation();
+//        this.conversationContext.invalidate();
         this.conversationContext.deactivate();
         this.conversationContext.activate();
 
         if (this.conversation.isTransient()) {
-            this.conversation.setTimeout(60000); //1 minuto (60000ms) dura la conversación
+            this.conversation.setTimeout(60000); //1 minuto (30000ms) dura la conversación
             this.conversation.begin();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Conversation was beggined sucessfully"));
         } else {
@@ -51,7 +51,6 @@ public class BeanModelA implements Serializable {
 
     public void endConversation() {
         System.out.println("BeanModelA.endConversation()");
-//        this.conversationContext.deactivate();
         if (!this.conversation.isTransient()) {
             this.conversation.end();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Conversation was ended sucessfully"));

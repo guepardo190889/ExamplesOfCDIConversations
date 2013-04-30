@@ -13,6 +13,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.jboss.weld.context.ConversationContext;
+import org.jboss.weld.context.http.Http;
 
 /**
  *
@@ -22,6 +24,9 @@ import javax.inject.Named;
 @ConversationScoped
 public class BeanModelB implements Serializable {
 
+    @Http
+    @Inject
+    private ConversationContext conversationContext;    
     @Inject
     private Conversation conversation;
     private List<String> list;
@@ -30,10 +35,12 @@ public class BeanModelB implements Serializable {
 
     public void beginConversation() {
         System.out.println("BeanModelB.beginConversation()");
-        endConversation();
-        
+//        this.conversationContext.invalidate();
+        this.conversationContext.deactivate();
+        this.conversationContext.activate();
+
         if (this.getConversation().isTransient()) {
-            this.getConversation().setTimeout(60000); //1 minuto (60000ms) dura la conversación
+            this.getConversation().setTimeout(30000); //1 minuto (60000ms) dura la conversación
             this.getConversation().begin();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Conversation was beggined sucessfully"));
         } else {

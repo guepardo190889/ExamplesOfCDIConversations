@@ -22,12 +22,12 @@
 
                 Conversaciones:
                 <ice:form>
-                    <h:dataTable id="table" value="#{conversationsManager.conversationsDataModel}" var="item" border="1" width="40%">
+                    <h:dataTable id="table" value="#{conversationsManager.managedConversationsDataModel()}" var="item" border="1" width="40%">
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="Conversación" />
                             </f:facet>
-                            <h:outputText value="#{item}" />
+                            <h:outputText value="#{item.id}" />
                         </h:column>
                     </h:dataTable>
                 </ice:form>
