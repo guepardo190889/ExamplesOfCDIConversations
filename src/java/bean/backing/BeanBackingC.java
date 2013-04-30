@@ -27,7 +27,7 @@ public class BeanBackingC {
     @Inject
     private BeanModelC beanModelC;    
 
-    public String goToPageB() {
+    public String goToPageC() {
         this.beanModelC.beginConversation();
         return "/views/pageC";
     }

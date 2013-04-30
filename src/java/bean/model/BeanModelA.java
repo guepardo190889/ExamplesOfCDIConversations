@@ -47,7 +47,7 @@ public class BeanModelA implements Serializable {
         System.out.println("beanModelA.list.size(): " + (this.beanModelB.getList() != null ? this.beanModelB.getList().size() : null));
 
         if (this.conversation.isTransient()) {
-            this.conversation.setTimeout(60000); //1 minuto (30000ms) dura la conversación
+            this.conversation.setTimeout(30000); //1 minuto (30000ms) dura la conversación
             this.conversation.begin();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Conversation was beggined sucessfully"));
         } else {
